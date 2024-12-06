@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -30,6 +31,10 @@ public class Answer {
     //질문 엔티티 참조(외래키)
     @ManyToOne
     private Question question;
+
+    //질문과 추천인과의 관계가 다 대 다 many to many 관계임
+    @ManyToMany
+    Set<SiteUser> voter;
 
     //외래키 설정
     @ManyToOne

@@ -106,6 +106,16 @@ public class QuestionController {
         return "redirect:/";
     }
 
+    //추천 버튼 눌렀을 때
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/vote/{id}")
+    public String questionVote(@PathVariable int id, Principal principal) {
+        Question q = this.qService.getQuestion(id);
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        this.qService.vote(q, siteUser);
+        return "redirect:/question/detail/" + id;
+    }
+
 
 
 

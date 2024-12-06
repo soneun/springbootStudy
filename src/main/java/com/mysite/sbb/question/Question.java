@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 //엔티티는 jpa의 테이블과 같은 클래스
 @Entity
@@ -37,6 +38,11 @@ public class Question {
     //외래키 설정
     @ManyToOne
     private SiteUser author;
+
+    //질문과 추천인과의 관계가 다 대 다 many to many 관계임
+    @ManyToMany
+    Set<SiteUser> voter;
+
 
     //반대로 이 질문에 해당 답변들(외래키 일때)
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)

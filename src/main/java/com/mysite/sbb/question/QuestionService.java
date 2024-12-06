@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.zip.DataFormatException;
 
 @Service
@@ -57,5 +58,14 @@ public class QuestionService {
     //삭제하기
     public void deleteQuestion(Question q) {
         this.qRepo.delete(q);
+    }
+
+    //추천인 저장
+    public void vote(Question q, SiteUser siteUser) {
+       /* Set<SiteUser> voters = q.getVoter();
+        voters.add(siteUser);*/
+        q.getVoter().add(siteUser);
+        this.qRepo.save(q);
+
     }
 }

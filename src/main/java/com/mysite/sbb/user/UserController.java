@@ -42,7 +42,7 @@ public class UserController {
             bindingResult.reject("signupFailed", e.getMessage());
             return "signup_form";
         }
-        userService.create(userCreateForm.getUsername(), userCreateForm.getEmail(),userCreateForm.getPassword1());
+
         return "redirect:/";
     }
 

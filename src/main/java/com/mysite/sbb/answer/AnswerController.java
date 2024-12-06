@@ -71,7 +71,7 @@ public class AnswerController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
         }
         this.aService.modify(a, answerForm.getContent() );
-        return String.format("redirect:/question/detail/%s", a.getQuestion().getId());
+        return "redirect:/question/detail/" + a.getQuestion().getId();
     }
 
     //답변 삭제
@@ -84,6 +84,16 @@ public class AnswerController {
         }
         this.aService.deleteAnswer(a);
         return "redirect:/" ;
+    }
+
+    //답변 추천인버튼 눌렀을때
+    @GetMapping("/vote/{id}")
+    public String answerVote(@PathVariable int id,
+                               Principal principal) {
+        Answer a = this.aService.getAnswer(id);
+        SiteUser siteUser = uService.getUser(principal.getName());
+        this.aService.vote(a,siteUser);
+        return "redirect:/question/detail/" + a.getQuestion().getId();
     }
 
     }
